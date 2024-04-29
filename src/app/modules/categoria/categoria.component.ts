@@ -7,7 +7,7 @@ import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-br
 @Component({
   selector: 'app-categoria',
   standalone: true,
-  imports: [CommonModule, CategoriaTableComponent, DialogModule, ButtonModule, BrowserAnimationsModule],
+  imports: [CommonModule, CategoriaTableComponent, DialogModule, ButtonModule],
   templateUrl: './categoria.component.html',
   styleUrl: './categoria.component.scss',
   providers: [  provideAnimations(),]
