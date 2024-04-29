@@ -4,13 +4,14 @@ import { CategoriaTableComponent } from './categoria-table/categoria-table.compo
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
 @Component({
   selector: 'app-categoria',
   standalone: true,
-  imports: [CommonModule, CategoriaTableComponent, DialogModule, ButtonModule, BrowserAnimationsModule],
+  imports: [CommonModule, CategoriaTableComponent, DialogModule, ButtonModule],
   templateUrl: './categoria.component.html',
   styleUrl: './categoria.component.scss',
-  providers: [  provideAnimations(),]
+  providers: []
 })
 export class CategoriaComponent {
   visible: boolean = false;
