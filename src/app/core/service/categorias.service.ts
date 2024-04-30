@@ -1,33 +1,43 @@
+import { GetCategoriasDto } from './../dto/get-categorias.dto';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
+import { CreateCategoriasDto } from '../dto/create-categorias.dto';
+import { CategoriasBuilder } from '../builder/categorias.builder';
+import { environment } from '../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoriasService {
-  private apiUrl = 'http://localhost:8100/categoria';
+  private apiUrl = environment.API_URL+'/categoria';
 
   constructor(private http: HttpClient) { }
 
-  getCategorias() {
-    return this.http.get<any>(this.apiUrl);
+  getCategorias(): Observable<GetCategoriasDto[]> {
+    return this.http.get<GetCategoriasDto[]>(this.apiUrl).pipe(
+       map(categorias => categorias.map(CategoriasBuilder.fromDtoToDomain)));
   }
 
-  getCategoriaById(id: number){
-    return this.http.get<any>(`${this.apiUrl}/${id}`);
+  getCategoriaById(id: number): Observable<GetCategoriasDto> {
+    return this.http.get<GetCategoriasDto>(`${this.apiUrl}/${id}`).pipe(
+      map(CategoriasBuilder.fromDtoToDomain));
   }
 
-  createCategoria(categoria: any): Observable<any>{
-    return this.http.post<any>(this.apiUrl, categoria);
+  createCategoria(categoria: CreateCategoriasDto): Observable<GetCategoriasDto>{
+    return this.http.post<GetCategoriasDto>(this.apiUrl, categoria).pipe(
+      map(CategoriasBuilder.fromDtoToDomain)
+    );
   }
 
-  updateCategoria(categoria: any, id: number){
-    return this.http.put(`${this.apiUrl}/${id}`, categoria);
+  updateCategoria(categoria: CreateCategoriasDto, id: number): Observable<GetCategoriasDto> {
+    return this.http.put<GetCategoriasDto>(`${this.apiUrl}/${id}`, categoria).pipe(
+      map(CategoriasBuilder.fromDtoToDomain)
+    );
   }
 
-  deleteCategoria(id: number){
-    this.http.delete(`${this.apiUrl}/${id}`);
+  deleteCategoria(id: number): void {
+    this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
 }
