@@ -5,13 +5,19 @@ import { routes } from './app.routes';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { LayoutService } from './core/service/app.layout.service';
+import { RippleModule } from 'primeng/ripple';
+import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    { provide: LocationStrategy, useClass: PathLocationStrategy },
+    LayoutService,
     importProvidersFrom(HttpClientModule),
-    BrowserModule, 
+    BrowserModule,
     BrowserAnimationsModule,
     provideAnimations(),
-    provideRouter(routes)
+    provideRouter(routes),
+    RippleModule
   ]
 };
