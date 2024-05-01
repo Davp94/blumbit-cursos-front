@@ -20,19 +20,14 @@ import { CategoriasService } from '../../core/service/categorias.service';
 export class CategoriaComponent implements OnInit{
   visible: boolean = false;
 
-  constructor(private categoriasService: CategoriasService) {}
+  constructor() {}
 
   ngOnInit(): void {
-    this.getCategorias();
   }
 
   showDialog() {
     this.visible = true;
   }
 
-  getCategorias() {
-    this.categoriasService.getCategorias().subscribe({
-      next: (data) => console.log(data),
-    });
-  }
+ 
 }

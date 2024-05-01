@@ -32,9 +32,9 @@ export class MenuComponent implements OnInit{
             routerLink: ['/categoria'],
           },
           {
-            label: 'Input',
+            label: 'Cursos',
             icon: 'pi pi-fw pi-check-square',
-            routerLink: ['/uikit/input'],
+            routerLink: ['/cursos'],
           },
           {
             label: 'Menu',

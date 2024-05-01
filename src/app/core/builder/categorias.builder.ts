@@ -14,10 +14,10 @@ export class CategoriasBuilder {
 
     static fromDomainToDto(categoriasDomain: CategoriasDomain): GetCategoriasDto{
         return {
-            id: categoriasDomain.id,
-            correlativo: categoriasDomain.correlativo,
-            nombre: categoriasDomain.nombre,
-            descripcion: categoriasDomain.descripcion,
+            id: categoriasDomain.id ? categoriasDomain.id : 0,
+            correlativo: categoriasDomain.correlativo ? categoriasDomain.correlativo : '',
+            nombre: categoriasDomain.nombre ? categoriasDomain.nombre : '',
+            descripcion: categoriasDomain.descripcion ? categoriasDomain.descripcion : '',
         }
     }
 }

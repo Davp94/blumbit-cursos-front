@@ -5,6 +5,7 @@ import { Observable, map } from 'rxjs';
 import { CreateCategoriasDto } from '../dto/create-categorias.dto';
 import { CategoriasBuilder } from '../builder/categorias.builder';
 import { environment } from '../../../environments/environment.development';
+import { CategoriasDomain } from '../domain/categorias.domain';
 
 @Injectable({
   providedIn: 'root'
@@ -14,30 +15,38 @@ export class CategoriasService {
 
   constructor(private http: HttpClient) { }
 
-  getCategorias(): Observable<GetCategoriasDto[]> {
+  getCategorias(): Observable<CategoriasDomain[]> {
     return this.http.get<GetCategoriasDto[]>(this.apiUrl).pipe(
        map(categorias => categorias.map(CategoriasBuilder.fromDtoToDomain)));
   }
 
-  getCategoriaById(id: number): Observable<GetCategoriasDto> {
+  getCategoriaById(id: number): Observable<CategoriasDomain> {
     return this.http.get<GetCategoriasDto>(`${this.apiUrl}/${id}`).pipe(
       map(CategoriasBuilder.fromDtoToDomain));
   }
 
-  createCategoria(categoria: CreateCategoriasDto): Observable<GetCategoriasDto>{
+  createCategoria(categoria: CreateCategoriasDto): Observable<CategoriasDomain>{
     return this.http.post<GetCategoriasDto>(this.apiUrl, categoria).pipe(
       map(CategoriasBuilder.fromDtoToDomain)
     );
   }
 
-  updateCategoria(categoria: CreateCategoriasDto, id: number): Observable<GetCategoriasDto> {
+  updateCategoria(categoria: CreateCategoriasDto, id: number): Observable<CategoriasDomain> {
     return this.http.put<GetCategoriasDto>(`${this.apiUrl}/${id}`, categoria).pipe(
       map(CategoriasBuilder.fromDtoToDomain)
     );
   }
 
-  deleteCategoria(id: number): void {
-    this.http.delete<void>(`${this.apiUrl}/${id}`);
+  enableCategoria(id: number): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/enable/${id}`, {});
+  }
+
+  deleteCategoria(id: number): Observable<void>  {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  logicDeleteCategoria(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/logic/${id}`);
   }
 
 }
