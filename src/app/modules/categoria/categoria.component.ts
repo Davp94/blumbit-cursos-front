@@ -3,11 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { CategoriaTableComponent } from './categoria-table/categoria-table.component';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
-import {
-  BrowserAnimationsModule,
-  provideAnimations,
-} from '@angular/platform-browser/animations';
-import { BrowserModule } from '@angular/platform-browser';
 import { CategoriasService } from '../../core/service/categorias.service';
 @Component({
   selector: 'app-categoria',

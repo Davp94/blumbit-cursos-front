@@ -1,5 +1,5 @@
 export interface CreateCategoriasDto{
-    correlativo: string,
+    correlativo?: string,
     nombre: string, 
     descripcion: string,
 }

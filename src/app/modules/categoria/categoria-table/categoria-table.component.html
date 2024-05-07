@@ -3,8 +3,7 @@
     <p-toast></p-toast>
     <p-toolbar styleClass="mb-4 gap-2">
         <ng-template pTemplate="left">
-            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
-            <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedProducts()" [disabled]="!selectedCategorias || !selectedCategorias.length"></button>
+            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew(1)"></button>
         </ng-template>
 
         <ng-template pTemplate="right">
@@ -40,7 +39,7 @@
                 <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
                 <th pSortableColumn="descripcion" style="min-width:10rem">Descripcion <p-sortIcon field="descripcion"></p-sortIcon></th>
                 <th pSortableColumn="correlativo">correlativo <p-sortIcon field="correlativo"></p-sortIcon></th>
-                <th></th>
+                <th>Acciones</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-categoria>
@@ -49,10 +48,10 @@
                 <td>{{ categoria.nombre}}</td>
                 <td>{{ categoria.descripcion }}</td>
                 <td>{{ categoria.correlativo }}</td>
-                <td>
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editProduct(categoria)"></button>
-                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteProduct(categoria)"></button>
-                    <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-warning" (click)="deleteProduct(categoria)"></button>
+                <td class="flex gap-1">
+                    <button pButton pRipple size="small" icon="pi pi-pencil" class="p-button-rounded mr-2 !bg-yellow-500" (click)="editCategoria(categoria)"></button>
+                    <button pButton pRipple size="small" severity="danger" icon="pi pi-trash" class="p-button-rounded" (click)="deleteCategoria(categoria)"></button>
+                    <button pButton pRipple size="small" severity="info" icon="pi pi-eye" class="p-button-rounded" (click)="deleteCategoria(categoria)"></button>
                 </td>
             </tr>
         </ng-template>
@@ -62,22 +61,7 @@
     </p-table>
 </div>
 <p-dialog [(visible)]="categoriaDialog" [style]="{ width: '450px' }" header="Product Details" [modal]="true" styleClass="p-fluid">
-    <ng-template pTemplate="content">
-        <div class="field">
-            <label for="name">Name</label>
-            <input type="text" pInputText id="name" [(ngModel)]="categoria.nombre" required autofocus />
-            <small class="p-error" *ngIf="submitted && !categoria.nombre">Name is required.</small>
-        </div>
-        <div class="field">
-            <label for="description">Description</label>
-            <textarea id="description" pInputTextarea [(ngModel)]="categoria.descripcion" required rows="3" cols="20"></textarea>
-        </div>
-    </ng-template>
-
-    <ng-template pTemplate="footer">
-        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
-    </ng-template>
+    <app-categoria-form [categoria]="categoria" [operation]="operation" (hideDialog)="hideDialog($event)"></app-categoria-form>
 </p-dialog>
 
 <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>

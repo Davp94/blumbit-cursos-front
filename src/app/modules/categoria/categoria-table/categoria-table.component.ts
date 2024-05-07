@@ -13,10 +13,11 @@ import { DialogModule } from 'primeng/dialog';
 import { FormsModule } from '@angular/forms';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { InputTextModule } from 'primeng/inputtext';
+import { CategoriaFormComponent } from '../categoria-form/categoria-form.component';
 @Component({
   selector: 'app-categoria-table',
   standalone: true,
-  imports: [CommonModule, TableModule, ToastModule, ToolbarModule, FileUploadModule, TagModule, RatingModule, DialogModule, FormsModule, ConfirmDialogModule, InputTextModule],
+  imports: [CommonModule, TableModule, ToastModule, ToolbarModule, FileUploadModule, TagModule, RatingModule, DialogModule, FormsModule, ConfirmDialogModule, InputTextModule, CategoriaFormComponent],
   templateUrl: './categoria-table.component.html',
   styleUrl: './categoria-table.component.scss',
   providers: [MessageService, ConfirmationService, CategoriasService]
@@ -34,7 +35,11 @@ export class CategoriaTableComponent {
 
   statuses!: any[];
 
-  constructor(private categoriasService: CategoriasService, private messageService: MessageService, private confirmationService: ConfirmationService) {}
+  operation: number = 0;
+
+  constructor(private categoriasService: CategoriasService, private messageService: MessageService, private confirmationService: ConfirmationService) {
+
+  }
 
   ngOnInit() {
       this.getCategorias();
@@ -51,46 +56,54 @@ export class CategoriaTableComponent {
     });
   }
 
-  openNew() {
-      this.categoria = {};
+  openNew(operation: number) {
+      this.operation = operation;
+      switch(operation){
+        case 1:
+            this.categoria = {}; 
+            break;
+        case 2: 
+        case 3:
+            break;
+        default:
+            throw('Operacion no permitida');
+      }
+   
       this.submitted = false;
       this.categoriaDialog = true;
   }
 
-  deleteSelectedProducts() {
-      this.confirmationService.confirm({
-          message: 'Are you sure you want to delete the selected products?',
-          header: 'Confirm',
-          icon: 'pi pi-exclamation-triangle',
-          accept: () => {
-              this.categorias = this.categorias.filter((val) => !this.selectedCategorias?.includes(val));
-              this.selectedCategorias = null;
-              this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
-          }
-      });
-  }
-
-  editProduct(categoria: CategoriasDomain) {
+  editCategoria(categoria: CategoriasDomain) {
       this.categoria = { ...categoria };
-      this.categoriaDialog = true;
+      this.openNew(2);
   }
 
-  deleteProduct(categoria: CategoriasDomain) {
+  deleteCategoria(categoria: CategoriasDomain) {
       this.confirmationService.confirm({
-          message: 'Are you sure you want to delete ' + categoria.nombre + '?',
-          header: 'Confirm',
+          message: 'Esta segur@ de eliminar la categoria ' + categoria.nombre + '?',
+          header: 'Advertencia !!!',
           icon: 'pi pi-exclamation-triangle',
           accept: () => {
-              this.categorias = this.categorias.filter((val) => val.id !== categoria.id);
-              this.categoria = {};
-              this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
+              this.categoriasService.deleteCategoria(categoria.id!).subscribe(
+                {
+                    next: value => {
+                      this.messageService.add({ severity: 'success', summary: 'Operacion Exitosa', detail: 'Categoría eliminada' });
+                      this.categoria = {};
+                      this.getCategorias();
+                    }
+                }
+              )
+
           }
       });
   }
 
-  hideDialog() {
+  hideDialog(event: boolean) {
       this.categoriaDialog = false;
       this.submitted = false;
+      if(event){
+        this.getCategorias();
+      }
   }
 
   saveProduct() {
