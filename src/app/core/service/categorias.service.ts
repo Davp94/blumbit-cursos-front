@@ -14,7 +14,6 @@ export class CategoriasService {
   private apiUrl = environment.API_URL+'/categoria';
 
   constructor(private http: HttpClient) { }
-
   getCategorias(): Observable<CategoriasDomain[]> {
     return this.http.get<GetCategoriasDto[]>(this.apiUrl).pipe(
        map(categorias => categorias.map(CategoriasBuilder.fromDtoToDomain)));
