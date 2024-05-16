@@ -45,7 +45,7 @@
         <ng-template pTemplate="body" let-categoria>
             <tr>
                 <td>{{ categoria.id }}</td>
-                <td>{{ categoria.nombre}}</td>
+                <td>{{ categoria.nombre | uppercase}}</td>
                 <td>{{ categoria.descripcion }}</td>
                 <td>{{ categoria.correlativo }}</td>
                 <td class="flex gap-1">
