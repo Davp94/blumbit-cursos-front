@@ -24,14 +24,23 @@ export class CategoriaFormComponent implements OnInit, OnChanges {
   @Input() operation!: number;
   @Output() hideDialog: EventEmitter<boolean> = new EventEmitter();
   submitted: boolean = false;
+  categoriaNombre: string;
+  categoriaDescripcion: string
 
-  constructor(private categoriasService: CategoriasService, private messageService: MessageService){}
+  constructor(private categoriasService: CategoriasService, private messageService: MessageService){
+    this.categoriaNombre = '';
+    this.categoriaDescripcion = '';
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     
   }
 
   ngOnInit(): void {
+    if(this.categoria){
+      this.categoriaNombre = String(this.categoria.nombre);
+      this.categoriaDescripcion = String(this.categoria.descripcion);
+    }
     console.log('INIT COMPONENT');
     console.log('categoria', this.categoria);
     console.log('operation', this.operation);

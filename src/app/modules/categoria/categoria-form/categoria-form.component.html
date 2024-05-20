@@ -2,12 +2,12 @@
     <p-toast />
     <div class="field">
         <label for="nombre">Name</label>
-        <input type="text" pInputText id="nombre" [(ngModel)]="categoria.nombre" required autofocus name="nombre" />
+        <input type="text" pInputText id="categoria.nombre" [(ngModel)]="categoriaNombre" required autofocus name="categoria.nombre" />
         <!-- <small class="p-error" *ngIf="submitted && !categoria.nombre">Name is required.</small> -->
     </div>
     <div class="field">
         <label for="descripcion">Description</label>
-        <textarea id="descripcion" pInputTextarea [(ngModel)]="categoria.descripcion" required rows="3"
+        <textarea id="descripcion" pInputTextarea [(ngModel)]="categoriaDescripcion" required rows="3"
             cols="20" name="descripcion"></textarea>
     </div>
     <div class="flex gap-2 justify-end">

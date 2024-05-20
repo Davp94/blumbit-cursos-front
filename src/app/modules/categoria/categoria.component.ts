@@ -23,6 +23,4 @@ export class CategoriaComponent implements OnInit{
   showDialog() {
     this.visible = true;
   }
-
- 
 }
