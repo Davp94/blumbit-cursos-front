@@ -22,7 +22,7 @@ export class CursosService {
     return this.http.post<any>(`${this.apiUrl}/usuario`, data);
   }
 
-  adjuntos(file: File): Observable<any> {
+  adjuntos(file: FormData): Observable<any> {
     return this.http.post<any>(environment.API_URL+'/adjuntos', file);
   }
 }

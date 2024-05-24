@@ -2,7 +2,7 @@
   <p-dataView #dv [value]="cursos" [layout]="'list'" [rows]="5" [paginator]="true">
     <ng-template pTemplate="header">
       <div class="flex justify-start">
-        <p-button label="Añadir curso" icon="pi pi-plus"/>
+        <p-button label="Añadir curso" icon="pi pi-plus" (onClick)="crearCurso()"/>
       </div>
     </ng-template>
     <ng-template pTemplate="list" let-cursos>
@@ -33,7 +33,7 @@
                 <div class="flex flex-row-reverse md:flex-row gap-2">
                   <p-button icon="pi pi-heart" [outlined]="true" />
                   <p-button icon="pi pi-shopping-cart" class="flex-auto md:flex-initial white-space-nowrap"
-                    label="Comprar" [disabled]="item.inventoryStatus === 'OUTOFSTOCK'" />
+                    label="Comprar" />
                 </div>
               </div>
             </div>
@@ -43,3 +43,6 @@
     </ng-template>
   </p-dataView>
 </div>
+<p-dialog [(visible)]="cursosDialog" [style]="{ width: '650px' }" header="Crear Curso" [modal]="true" styleClass="p-fluid">
+  <app-cursos-form (hideDialog)="hideDialog($event)"></app-cursos-form>
+</p-dialog>

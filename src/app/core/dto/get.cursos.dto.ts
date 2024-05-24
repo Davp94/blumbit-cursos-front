@@ -1,8 +1,8 @@
 export interface GetCursosDto {
-  curId: number;
+  curId?: number;
   curNombre: string;
   curDescripcion: string;
   curBanner: string;
-  curEstado: string;
+  curEstado?: string;
   categoria: any;
 }

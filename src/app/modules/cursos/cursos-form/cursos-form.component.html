@@ -1,1 +1,52 @@
-<p>cursos-form works!</p>
+<form [formGroup]="formCurso">
+    <p-toast />
+    <div class="field">
+        <label for="nombre">Nombre</label>
+        <input type="text" pInputText id="categoria.nombre"  required autofocus name="categoria.nombre"
+        formControlName="curNombre" />
+        <!-- <small class="p-error" *ngIf="submitted && !categoria.nombre">Name is required.</small> -->
+    </div>
+    <div class="field">
+        <label for="descripcion">Description</label>
+        <textarea id="descripcion" pInputTextarea required rows="3"
+            cols="20" name="descripcion" formControlName="curDescripcion"></textarea>
+    </div>
+    <div class="field">
+        <label for="descripcion">Categoria</label>
+        <p-dropdown 
+        id="categoria"
+        formControlName="categoria" 
+        [options]="categorias"
+        optionLabel="nombre"
+        placeholder="Selecciona una categoria" />
+    </div>
+  
+
+    <div class="card flex justify-content-center mt-2 w-full">
+        <p-toast />
+        <p-fileUpload 
+            name="demo[]"
+            url="http://localhost:8100/adjuntos"
+            [withCredentials]="true"
+            [headers]="headers"
+            [method]="'post'"
+            [customUpload]="true"
+            (uploadHandler)="onUpload($event)"
+            class="w-full" 
+            [multiple]="false"
+            accept="image/*" 
+            maxFileSize="1000000">
+                <ng-template pTemplate="content">
+                    <ul *ngIf="uploadedFiles.length">
+                        <li *ngFor="let file of uploadedFiles">
+                            {{ file.name }} - {{ file.size }} bytes
+                        </li>
+                    </ul>
+                </ng-template>
+        </p-fileUpload>
+    </div>
+    <div class="flex gap-2 justify-end">
+        <p-button pRipple label="Cancel" icon="pi pi-times" (click)="closeDialog(false)" severity="danger"></p-button>
+        <p-button pRipple label="Save" icon="pi pi-check" (click)="saveCurso()"></p-button>
+    </div>
+</form>
