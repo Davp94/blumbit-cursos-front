@@ -141,4 +141,15 @@ export class CategoriaTableComponent {
       let id = 0;
       return this.categorias.length+1;
   }
+
+  downloadPdf() {
+    this.categoriasService.generateCategoriasListPdf().subscribe({
+      next: (res) => {
+        const url = window.URL.createObjectURL(res);
+        window.open(url);
+        window.URL.revokeObjectURL(url);
+      },
+      error: (error) =>console.log(error)
+    });
+  }
 }

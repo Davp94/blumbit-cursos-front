@@ -20,7 +20,7 @@ import { MessageService } from 'primeng/api';
     ButtonModule,
     CommonModule,
     DialogModule,
-    CursosFormComponent
+    CursosFormComponent,
   ],
   templateUrl: './cursos-main.component.html',
   styleUrl: './cursos-main.component.scss',
@@ -28,11 +28,14 @@ import { MessageService } from 'primeng/api';
 })
 export class CursosMainComponent {
   cursosDialog: boolean = false;
-  hostImages = environment.API_URL+'/images/'
+  hostImages = environment.API_URL + '/images/';
 
   cursos!: GetCursosDto[];
 
-  constructor(private cursosService: CursosService, private messageService: MessageService) {}
+  constructor(
+    private cursosService: CursosService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit() {
     this.getCursos();
@@ -50,8 +53,12 @@ export class CursosMainComponent {
 
   hideDialog(event: boolean) {
     this.cursosDialog = false;
-    if(event){
+    if (event) {
       this.getCursos();
     }
-}
+  }
+
+  comprarCurso(curId: number){
+    console.log('comprar curso');
+  }
 }

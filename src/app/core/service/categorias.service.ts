@@ -48,8 +48,8 @@ export class CategoriasService {
     return this.http.delete<void>(`${this.apiUrl}/logic/${id}`);
   }
 
-  generateCategoriasListPdf(){
-    return this.http.get(environment.API_URL+'/pdf')
+  generateCategoriasListPdf(): Observable<any> {
+    return this.http.get(environment.API_URL+'/pdf', {responseType: 'blob'});
   }
 
 }

@@ -58,14 +58,6 @@ export class CursosFormComponent implements OnInit{
     if(this.formCurso.valid){
       const cursoDto: GetCursosDto = this.formCurso.value;
       console.log("🚀 ~ CursosFormComponent ~ saveCurso ~ this.formCurso.value:", this.formCurso.value)
-      // this.cursosService.createCursos(cursoDto).subscribe(
-      //   {
-      //     next: value => {
-      //       this.messageService.add({ severity: 'success', summary: 'Operacion Exitosa', detail: 'Categoría creada' });
-      //       this.closeDialog(true);
-      //     }
-      //   }
-      // );
     } 
   }
 
@@ -74,7 +66,7 @@ export class CursosFormComponent implements OnInit{
     const fomrData = new FormData();
     fomrData.append('file', event.files[0] )
     this.cursosService.adjuntos(fomrData).subscribe({
-      next: res => this.formCurso.get('curBanner')?.setValue(res),
+      next: res => this.formCurso.get('curBanner')?.setValue(res.filePath),
       error: error => console.log(error)
     })
   }
