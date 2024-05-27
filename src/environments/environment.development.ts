@@ -1,3 +1,3 @@
 export const environment = {
-    API_URL: 'http://localhost:8100'
+    API_URL: 'https://blumbit-cursos-service.onrender.com'
 };
