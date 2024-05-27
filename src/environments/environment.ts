@@ -1,3 +1,5 @@
 export const environment = {
-  production: false,
+  production: true,
+  API_URL: 'https://blumbit-cursos-service.onrender.com'
+
 };
